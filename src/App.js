@@ -8,43 +8,54 @@ import { useEffect } from "react";
 
 function App() {
 
-  // configuramos el mostrar o no las tareas completadas 
- let configCompletadas = '';
- if ( localStorage.getItem('mostrarcompletadas')=== null){
-  configCompletadas = true
- } else {
-  configCompletadas = localStorage.getItem('mostrarcompletadas') === 'true'
- }
 
+  // usamos el local storage para guardar las tareas
   const tareasGuardadas = localStorage.getItem("tareas")
     ? JSON.parse(localStorage.getItem("tareas"))
     : [];
+
+    // usamos el stado para mostrar las tareas
   const [tareas, cambiarTareas] = useState(tareasGuardadas);
   useEffect(() => {
     localStorage.setItem("tareas", JSON.stringify(tareas));
   }, [tareas]);
 
+
+
+  // configuramos el mostrar o no las tareas completadas 
+  let configCompletadas = '';
+  if ( localStorage.getItem('mostrarCompletadas')=== null){
+   configCompletadas = true;
+  } else {
+   configCompletadas = localStorage.getItem('mostrarCompletadas') === 'true'
+  }
+   //  usamos el  estado para mostrar o no las tareas completadas
   const [mostrarCompletadas, cambiarMostrarCompletadas] = useState(configCompletadas);
 
+  // este  codigo se ejecuta cada que modificamos el estado de mostrarCompletadas
   useEffect(() => {
     localStorage.setItem("mostrarCompletadas", mostrarCompletadas.toString());
   }, [mostrarCompletadas]);
 
+
+
   return (
     <div className="contenedor">
-      <Header
+      <Header 
+      //props del header
         mostrarCompletadas={mostrarCompletadas}
         cambiarMostrarCompletadas={cambiarMostrarCompletadas}
-      />{" "}
-      {/* componente header */}
-      <Tareas tareas={tareas} cambiarTareas={cambiarTareas} />{" "}
-      {/* Componente agregar tarea */}
+      />
+      
+      <Tareas 
+      tareas={tareas} 
+      cambiarTareas={cambiarTareas}/>
+    
       <ListaTareas
         tareas={tareas}
         cambiarTareas={cambiarTareas}
         mostrarCompletadas={mostrarCompletadas}
-      />{" "}
-      {/* lista de tareas*/}
+      />
     </div>
   );
 }

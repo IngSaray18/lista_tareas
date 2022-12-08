@@ -4,12 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
 const Tareas = ({tareas, cambiarTareas}) => {
+
+  // usamos el estado para agregar una tarea nueva
 const [inputTarea, cambiarInputTareas] = useState('');
 
+// funcion para obtener la info del input  
 const handleInput = (e) =>{
 cambiarInputTareas(e.target.value);
 }
-
+// funcion para agregar al arreglo tareas el valor del input 
     const handleSubmit = (e) =>{
         e.preventDefault();
 
